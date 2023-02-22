@@ -16,6 +16,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState<User | null>(null);
   const [agents, setAgents] = useState<Agents>({});
+  const uid = userData?.uid;
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -25,10 +26,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    onValue(ref(database, "agents"), (snapshot) => {
-      setAgents(snapshot.val());
-    });
-  }, []);
+    if (uid)
+      onValue(ref(database, "agents"), (snapshot) => {
+        setAgents(snapshot.val());
+      });
+  }, [uid]);
 
   if (isLoading) return <LoadingSkeleton />;
 
