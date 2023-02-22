@@ -37,14 +37,7 @@ function App() {
       <userContext.Provider value={userData}>
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
-          {userData ? (
-            <>
-              <SideBar userEmail={userData.email || i18n.gettext("Log out")} />
-              <Main />
-            </>
-          ) : (
-            <LoginPage />
-          )}
+          {userData ? <Main /> : <LoginPage />}
         </Box>
       </userContext.Provider>
     </agentsContext.Provider>

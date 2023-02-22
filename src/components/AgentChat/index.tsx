@@ -27,7 +27,7 @@ export function AgentChat() {
       </ChatMessage>
       {sortedConversation.map((ea) => (
         <ChatMessage
-          avatar={ea.userGenerated ? "U" : agentAvatar}
+          avatar={ea.userGenerated ? "🙂" : agentAvatar}
           key={ea.timestamp}
           isReversed={ea.userGenerated}
         >
