@@ -1,22 +1,8 @@
 import { DRAWER_WIDTH } from "@/constants";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import { Link, Route, Routes } from "react-router-dom";
-
-function MainPage() {
-  return <Box>Hello, world</Box>;
-}
-
-function OtherPage() {
-  return (
-    <Box>
-      <Box>Goodbye, world</Box>
-      <Box>
-        <Link to="/">Return</Link>
-      </Box>
-    </Box>
-  );
-}
+import { Route, Routes } from "react-router-dom";
+import { AgentChat } from "@/components/AgentChat";
 
 export function Main() {
   return (
@@ -30,8 +16,7 @@ export function Main() {
     >
       <Toolbar />
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/other" element={<OtherPage />} />
+        <Route path={":agentSlug"} element={<AgentChat />} />
       </Routes>
     </Box>
   );

@@ -1,5 +1,6 @@
 import { DRAWER_WIDTH } from "@/constants";
 import { auth } from "@/firebase";
+import { useAgents } from "@/hooks";
 import { i18n } from "@/utils/i18n";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
@@ -13,15 +14,20 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function MenuContents({
   setIsMobileOpen,
+  userEmail,
 }: {
   setIsMobileOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  userEmail: string;
 }) {
   const navigate = useNavigate();
+  const agents = useAgents();
+
+  const agentSlugs = useMemo(() => Object.keys(agents), [agents]);
 
   return (
     <>
@@ -34,27 +40,29 @@ function MenuContents({
             if (didConfirmLogout) auth.signOut();
           }}
         >
-          useremail@gmail.com
+          {userEmail}
         </Button>
       </Toolbar>
       <Divider />
       <List>
-        <ListItem disablePadding>
-          <ListItemButton
-            onClick={() => {
-              setIsMobileOpen(false);
-              navigate("other");
-            }}
-          >
-            <ListItemText primary={i18n.gettext("Other Page")} />
-          </ListItemButton>
-        </ListItem>
+        {agentSlugs.map((ea) => (
+          <ListItem key={ea} disablePadding>
+            <ListItemButton
+              onClick={() => {
+                setIsMobileOpen(false);
+                navigate(ea);
+              }}
+            >
+              <ListItemText primary={agents[ea].name} />
+            </ListItemButton>
+          </ListItem>
+        ))}
       </List>
     </>
   );
 }
 
-export function SideBar() {
+export function SideBar({ userEmail }: { userEmail: string }) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const handleDrawerToggle = useCallback(() => {
@@ -73,7 +81,7 @@ export function SideBar() {
         <Toolbar>
           <IconButton
             color="inherit"
-            aria-label="open drawer"
+            aria-label={i18n.gettext("Open Agents menu")}
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
@@ -85,7 +93,7 @@ export function SideBar() {
       <Box
         component="nav"
         sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
+        aria-label={i18n.gettext("Agents menu")}
       >
         <Drawer
           variant="temporary"
@@ -102,7 +110,10 @@ export function SideBar() {
             },
           }}
         >
-          <MenuContents setIsMobileOpen={setIsMobileOpen} />
+          <MenuContents
+            setIsMobileOpen={setIsMobileOpen}
+            userEmail={userEmail}
+          />
         </Drawer>
         <Drawer
           variant="permanent"
@@ -115,7 +126,10 @@ export function SideBar() {
           }}
           open
         >
-          <MenuContents setIsMobileOpen={setIsMobileOpen} />
+          <MenuContents
+            setIsMobileOpen={setIsMobileOpen}
+            userEmail={userEmail}
+          />
         </Drawer>
       </Box>
     </>
