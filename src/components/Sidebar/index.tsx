@@ -1,4 +1,5 @@
 import { DRAWER_WIDTH } from "@/constants";
+import { auth } from "@/firebase";
 import { i18n } from "@/utils/i18n";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
@@ -25,7 +26,16 @@ function MenuContents({
   return (
     <>
       <Toolbar>
-        <Button>useremail@gmail.com</Button>
+        <Button
+          onClick={() => {
+            // eslint-disable-next-line no-restricted-globals
+            const didConfirmLogout = confirm(i18n.gettext("Confirm log out?"));
+
+            if (didConfirmLogout) auth.signOut();
+          }}
+        >
+          useremail@gmail.com
+        </Button>
       </Toolbar>
       <Divider />
       <List>
