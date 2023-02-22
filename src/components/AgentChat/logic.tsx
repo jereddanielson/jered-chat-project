@@ -22,9 +22,12 @@ export function useAgentChatState() {
 
   useEffect(() => {
     if (uid)
-      onValue(ref(database, `userData/${uid}/${agentSlug}`), (snapshot) => {
-        setConversation(snapshot.val());
-      });
+      onValue(
+        ref(database, `userData/${uid}/${agentSlug}/chats`),
+        (snapshot) => {
+          setConversation(snapshot.val());
+        }
+      );
   }, [agentSlug, uid]);
 
   // Sort converation by timestamp just in case
@@ -42,7 +45,7 @@ export function useAgentChatState() {
 
   const sendMessage = useCallback(
     (text: string, userGenerated = false) => {
-      set(ref(database, `userData/${uid}/${agentSlug}/${Date.now()}`), {
+      set(ref(database, `userData/${uid}/${agentSlug}/chats/${Date.now()}`), {
         userGenerated,
         text,
       });

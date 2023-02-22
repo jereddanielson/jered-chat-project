@@ -1,5 +1,6 @@
 import { i18n } from "@/utils/i18n";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Skeleton from "@mui/material/Skeleton";
 import TextField from "@mui/material/TextField";
@@ -30,6 +31,7 @@ export function AgentChat() {
           avatar={ea.userGenerated ? "🙂" : agentAvatar}
           key={ea.timestamp}
           isReversed={ea.userGenerated}
+          timestamp={ea.timestamp}
         >
           {ea.text}
         </ChatMessage>
@@ -47,6 +49,11 @@ export function AgentChat() {
             sx={{ width: "100%" }}
             onChange={(e) => setText(e.target.value)}
             value={text}
+            InputProps={{
+              endAdornment: (
+                <Button type={"submit"}>{i18n.gettext("Send")}</Button>
+              ),
+            }}
           />
         </form>
       </Box>
