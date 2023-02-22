@@ -2,7 +2,7 @@ import { LoadingSkeleton } from "@/components/LoadingSkeleton";
 import { LoginPage } from "@/components/LoginPage";
 import { Main } from "@/components/Main";
 import { SideBar } from "@/components/Sidebar";
-import { agentsContext } from "@/contexts";
+import { agentsContext, userContext } from "@/contexts";
 import { auth, database } from "@/firebase";
 import { Agents } from "@/types";
 import { i18n } from "@/utils/i18n";
@@ -34,17 +34,19 @@ function App() {
 
   return (
     <agentsContext.Provider value={agents}>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        {userData ? (
-          <>
-            <SideBar userEmail={userData.email || i18n.gettext("Log out")} />
-            <Main />
-          </>
-        ) : (
-          <LoginPage />
-        )}
-      </Box>
+      <userContext.Provider value={userData}>
+        <Box sx={{ display: "flex" }}>
+          <CssBaseline />
+          {userData ? (
+            <>
+              <SideBar userEmail={userData.email || i18n.gettext("Log out")} />
+              <Main />
+            </>
+          ) : (
+            <LoginPage />
+          )}
+        </Box>
+      </userContext.Provider>
     </agentsContext.Provider>
   );
 }
