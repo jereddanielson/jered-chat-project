@@ -4,6 +4,10 @@ import { onValue, ref, set } from "firebase/database";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 
+// For complex components, I prefer to consolidate logic in a custom hook.
+// This allows for smaller file sizes, and sensible colocation of logic.
+// Also, it helps promote stateless components more often.
+// In unit testing, custom hooks and their relatively stateless counterparts can be mocked and tested more easily separate.
 export function useAgentChatState() {
   const [isThinking, setIsThinking] = useState(false);
   const [text, setText] = useState("");

@@ -18,7 +18,7 @@ export function ChatMessage({
       container
       wrap={"nowrap"}
       spacing={2}
-      sx={{ mb: 2 }}
+      sx={{ mb: 2, wordBreak: "break-word" }}
       direction={isReversed ? "row-reverse" : "row"}
     >
       <Grid item>

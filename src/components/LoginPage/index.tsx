@@ -1,8 +1,10 @@
 import { auth, provider } from "@/firebase";
-import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
-import { signInWithPopup } from "firebase/auth";
+import { i18n } from "@/utils/i18n";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import { signInWithPopup } from "firebase/auth";
+
 export function LoginPage() {
   return (
     <Grid
@@ -22,7 +24,7 @@ export function LoginPage() {
             console.log(result);
           }}
         >
-          Please log in to continue
+          {i18n.gettext("Please log in to continue")}
         </Button>
       </Grid>
     </Grid>

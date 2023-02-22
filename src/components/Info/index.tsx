@@ -13,6 +13,10 @@ export function Info() {
         interfaces from a Firebase instance and allows you to query them.
       </Typography>
       <Typography paragraph>
+        By chatting with one of the "Agents", they will run a simple API query
+        against a handful of free and fun "lorem ipsum" style APIs I found.
+      </Typography>
+      <Typography paragraph>
         Firebase also allows to save chat histories unique to each user, which
         are able to be stored and loaded dynamically from any browser as long as
         the user is logged in.
