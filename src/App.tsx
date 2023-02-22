@@ -1,11 +1,9 @@
 import { LoadingSkeleton } from "@/components/LoadingSkeleton";
 import { LoginPage } from "@/components/LoginPage";
 import { Main } from "@/components/Main";
-import { SideBar } from "@/components/Sidebar";
 import { agentsContext, userContext } from "@/contexts";
 import { auth, database } from "@/firebase";
 import { Agents } from "@/types";
-import { i18n } from "@/utils/i18n";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import { onAuthStateChanged, User } from "firebase/auth";
